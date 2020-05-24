@@ -3,6 +3,10 @@ import NavBar from "./components/navbar";
 import Counters from "./components/counters";
 
 class App extends Component {
+  componentDidUpdate(prevProps, prevState) {
+    console.log("prevProps", prevProps);
+    console.log("prevState", prevState);
+  }
   state = {
     counters: [
       { id: 1, value: 4 },
@@ -13,9 +17,7 @@ class App extends Component {
   };
 
   handleReset = () => {
-    const counters = [...this.state.counters];
-    console.log("state", counters);
-    this.setState({ counters: this.state.counters });
+    // console.log(this.state.prevState);
   };
 
   handleDelete = (counterId) => {
@@ -31,6 +33,14 @@ class App extends Component {
     this.setState({ counters });
   };
 
+  handleDecrement = (counter) => {
+    const counters = [...this.state.counters];
+    const index = counters.indexOf(counter);
+    counters[index] = { ...counter };
+    counters[index].value--;
+    this.setState({ counters });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -42,6 +52,7 @@ class App extends Component {
             onDelete={this.handleDelete}
             onIncrement={this.handleIncrement}
             onReset={this.handleReset}
+            onDecrement={this.handleDecrement}
             counters={this.state.counters}
           />
         </main>

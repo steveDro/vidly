@@ -28,31 +28,49 @@ class Counter extends Component {
   //     this.setState({ value });
   //   };
 
+  disabled() {
+    if (this.props.counter.value === 0) return true;
+    return false;
+  }
+
   render() {
     // console.log("props", this.props.counter.id);
     // console.log("children", this.props.children);
     return (
-      <div>
-        {/* <img src={this.state.imageUrl} alt="" /> */}
-        {/* <span style={this.styles} className="badge badge-primary m-2">
-          {this.formatCount()}
-        </span> */}
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-3">
+            <span style={this.styles} className={this.getBadgeClasses()}>
+              {this.formatCount()}
+            </span>
+          </div>
+          <div className="col-sm-3">
+            <button
+              onClick={() => this.props.onIncrement(this.props.counter)}
+              className="btn btn-secondary btn-sm"
+            >
+              +
+            </button>
+          </div>
+          <div className="col-sm-3">
+            <button
+              onClick={() => this.props.onDecrement(this.props.counter)}
+              className="btn btn-secondary btn-sm"
+              disabled={this.disabled()}
+            >
+              -
+            </button>
+          </div>
+          <div className="col-sm-3">
+            <button
+              onClick={() => this.props.onDelete(this.props.counter.id)}
+              className="btn btn-danger btn-sm m-2"
+            >
+              X
+            </button>
+          </div>
+        </div>
 
-        <span style={this.styles} className={this.getBadgeClasses()}>
-          {this.formatCount()}
-        </span>
-        <button
-          onClick={() => this.props.onIncrement(this.props.counter)}
-          className="btn btn-secondary btn-sm"
-        >
-          Increment
-        </button>
-        <button
-          onClick={() => this.props.onDelete(this.props.counter.id)}
-          className="btn btn-danger btn-sm m-2"
-        >
-          Delete
-        </button>
         {/* <ul>
           {this.state.tags.map((tag) => (
             <li key={tag}>{tag}</li>

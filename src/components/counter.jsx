@@ -56,7 +56,7 @@ class Counter extends Component {
             <button
               onClick={() => this.props.onDecrement(this.props.counter)}
               className="btn btn-secondary btn-sm"
-              disabled={this.props.counter.value === 0}
+              disabled={this.props.counter.value === 0 ? true : ""}
             >
               -
             </button>
